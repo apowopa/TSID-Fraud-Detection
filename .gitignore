@@ -1,0 +1,47 @@
+# ===================================================
+# Snowflake
+# ===================================================
+
+# --- Credenciales y Configuración Sensible ---
+# ¡NUNCA subas estos archivos!
+.env
+*.key
+*.pem
+credentials.json
+config.json
+credentials.ini
+config.ini
+
+# Archivos de configuración y logs del CLI de SnowSQL
+snowsql_config
+snowsql_history
+*.log
+
+# --- Datos y Exportaciones ---
+# Generalmente no se versionan los datos crudos o exportaciones grandes
+*.csv
+*.parquet
+*.json
+# (Ten cuidado con *.json, puede que SÍ quieras versionar
+# archivos de configuración JSON. Ajusta según sea necesario.)
+
+# Carpetas comunes de salida de datos
+output/
+data_exports/
+target/
+
+# --- Entornos y Dependencias (Ajusta a tu lenguaje) ---
+# Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Node.js
+node_modules/
+
+# --- IDEs y Editores ---
+.vscode/
+.idea/
+*.swp
+*.swo
