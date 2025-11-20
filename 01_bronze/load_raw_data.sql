@@ -1,0 +1,55 @@
+-- 0. Asegurarnos de estar en el lugar correcto
+use schema card_transaction.bronze;
+
+-- 1. Crear un File Format específico
+CREATE OR REPLACE FILE FORMAT MY_CSV_FORMAT
+  TYPE = 'CSV'
+  FIELD_DELIMITER = ','
+  PARSE_HEADER = TRUE 
+  FIELD_OPTIONALLY_ENCLOSED_BY = '"'
+  NULL_IF = ('NULL', 'null', '');
+
+-- 2. Crear la tabla 
+
+CREATE OR REPLACE TABLE RAW_TRANSACTIONS (
+    INDEX_ID INT,
+    TRANS_DATE_TRANS_TIME TIMESTAMP_NTZ, 
+    CC_NUM VARCHAR,            
+    MERCHANT VARCHAR,
+    CATEGORY VARCHAR,
+    AMT FLOAT,
+    FIRST_NAME VARCHAR,         
+    LAST_NAME VARCHAR,         
+    GENDER VARCHAR,
+    STREET VARCHAR,
+    CITY VARCHAR,
+    STATE VARCHAR,
+    ZIP VARCHAR,
+    LAT FLOAT,
+    LONG FLOAT,
+    CITY_POP INT,
+    JOB VARCHAR,
+    DOB DATE,
+    TRANS_NUM VARCHAR,
+    UNIX_TIME INT,
+    MERCH_LAT FLOAT,
+    MERCH_LONG FLOAT,
+    IS_FRAUD INT
+);
+
+-- 3. Cargar los datos (COPY INTO)
+COPY INTO RAW_TRANSACTIONS
+FROM @stage_bronze
+FILES = ('fraudTrain.csv')
+FILE_FORMAT = (
+    TYPE = 'CSV' 
+    SKIP_HEADER = 1 
+    FIELD_OPTIONALLY_ENCLOSED_BY = '"'
+    NULL_IF = ('NULL', 'null', '')
+    TIMESTAMP_FORMAT = 'YYYY-MM-DD HH24:MI:SS'
+    DATE_FORMAT = 'YYYY-MM-DD'
+)
+ON_ERROR = 'CONTINUE';
+-- 4. Verificar
+SELECT COUNT(*) as TOTAL_ROWS
+FROM RAW_TRANSACTIONS;
