@@ -1,5 +1,3 @@
--- 02_silver/rebeca/03_dimensional_tables.sql
--- Tablas dimensionales para análisis
 USE DATABASE CARD_TRANSACTION;
 
 CREATE OR REPLACE TABLE SILVER.DIM_MERCHANTS AS

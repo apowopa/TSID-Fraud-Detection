@@ -1,5 +1,3 @@
--- 02_silver/rebeca/02_enhanced_features.sql
--- Features avanzados para análisis
 USE DATABASE CARD_TRANSACTION;
 
 CREATE OR REPLACE TABLE SILVER.TRANSACTIONS_ENHANCED AS
